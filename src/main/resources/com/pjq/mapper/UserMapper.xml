@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pjq.mapper.UserMapper">
+    <select id="selectByUsernameAndPassword" resultType="int">
+        select count(*) from user where username=#{username} and password =#{password};
+    </select>
+    <select id="queryAllUser" resultType="com.pjq.pojo.User">
+        select *  from User;
+    </select>
+    <select id="queryUser" parameterType="String" resultType="com.pjq.pojo.User">
+        select * from user where username =#{username};
+    </select>
+    <select id="queryUserVague" parameterType="String" resultType="com.pjq.pojo.User">
+        select * from user where username like #{username};
+    </select>
+    <select id="queryUserById" parameterType="int" resultType="com.pjq.pojo.User">
+        select * from user where id =#{id};
+    </select>
+    <select id="queryAllUsername" resultType="String">
+        select username from user;
+    </select>
+    <insert id="addUser" parameterType="com.pjq.pojo.User">
+        insert into user(id,username,password,name,introduction,gender,province,city,regist_time,type,email,mobile,qq,status,headphoto)
+        values (#{id},#{username},#{password},#{name},#{introduction},#{gender},#{province},#{city},#{registTime},#{type},#{email},#{mobile},#{qq},#{status},#{headphoto})
+    </insert>
+    <update id="updateStatus" >
+        update user set status =#{status} where username =#{username};
+    </update>
+    <update id="updateUser" parameterType="com.pjq.pojo.UserChangeInfor">
+        update user set
+            username =#{newusername},
+            name = #{name},
+            introduction =#{introduction},
+            gender =#{gender},
+            province =#{province},
+            city =#{city},
+            email =#{email},
+            mobile =#{mobile},
+            qq =#{qq}
+        where username =#{oldusername};
+    </update>
+    <update id="updatePassword" >
+        update user set password =#{password} where username =#{username};
+    </update>
+    <update id="updateHeadPhoto" >
+        update user set headPhoto =#{headphoto} where username =#{username};
+    </update>
+</mapper>

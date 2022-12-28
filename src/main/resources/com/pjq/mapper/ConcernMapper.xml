@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pjq.mapper.ConcernMapper">
+    <select id="selectUserConcerner" parameterType="int" resultType="int">
+        select concerned_id from concern where concerner_id = #{id};
+    </select>
+    <select id="selectUserFan" parameterType="int" resultType="int">
+        select concerner_id from concern where concerned_id = #{id};
+    </select>
+    <insert id="addConcern" parameterType="com.pjq.pojo.Concern" useGeneratedKeys="true" keyProperty="id">
+        insert into concern(concerner_id,concerned_id,concern_time)
+            values (#{concernerId},#{concernedId},#{concernTime});
+    </insert>
+    <delete id="deleteConcern">
+        delete from concern where concerner_id =#{concernerid} and concerned_id =#{concernedid};
+    </delete>
+    <select id="countConcernerNum" resultType="int" parameterType="int">
+        select count(*) from concern where concerned_id =#{id};
+    </select>
+    <select id="countConcernedNum" resultType="int" parameterType="int">
+        select count(*) from concern where concerner_id =#{id};
+    </select>
+</mapper>

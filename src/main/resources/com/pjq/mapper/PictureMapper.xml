@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pjq.mapper.PictureMapper">
+    <select id="selectUserPicture" resultType="com.pjq.pojo.Picture">
+        select * from picture where uid =#{id};
+    </select>
+    <select id="selectLastedPicture" resultType="com.pjq.pojo.Picture">
+        select *  from picture order by upload_time desc;
+    </select>
+    <select id="selectPictureByNameVague" resultType="com.pjq.pojo.Picture">
+        select *  from picture where name like #{pname};
+    </select>
+    <delete id="deletePicture" parameterType="string">
+        delete from picture where fname = #{fname};
+    </delete>
+    <select id="selectAllPicture" resultType="com.pjq.pojo.Picture">
+        select * from picture;
+    </select>
+    <insert id="addPicture" useGeneratedKeys="true" keyProperty="id" parameterType="com.pjq.pojo.Picture">
+        insert into picture(name,fname,uid,intro,tags,upload_time,click_num)
+            values (#{name},#{fname},#{uid},#{intro},#{tags},#{uploadTime},#{clickNum});
+    </insert>
+</mapper>
